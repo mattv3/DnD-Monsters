@@ -8,25 +8,22 @@ async function fetchData() {
             throw new Error('Could not fetch response')
         }
         const data = await response.json()
-        console.log(data)
+
+        // Set monster image
         const monsterImage = `https://www.dnd5eapi.co${data.image}`
-        console.log(monsterImage)
-        const imgElement = document.querySelector('.monsterImg')
-        const nameMonster = document.querySelector('.nameMonster')
-        const monsterHP = document.querySelector('.monsterHP')
-        const monsterSize = document.querySelector('.monsterSize')
-        const monsterType = document.querySelector('.monsterType')
-        const monsterAlign = document.querySelector('.monsterAlign')
-        
-        imgElement.src = monsterImage
-        nameMonster.innerText = data.name
-        monsterHP.innerText = data.hit_points
-        monsterSize.innerText = data.size
-        monsterType.innerText = data.type
-        monsterAlign.innerText = data.alignment
+        document.querySelector('.monsterImg').src = monsterImage
+
+        // Populate list items
+        document.querySelectorAll('#monsterInfo li').forEach(li => {
+            const key = li.dataset.key
+            li.innerText = data[key]
+        })
+
     }
     catch(error) {
         console.error(error)
     }
 }
+
+
 
